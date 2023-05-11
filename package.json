@@ -1,6 +1,6 @@
 {
   "name": "intl-number-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility for parsing international numbers to native JavaScript numbers based on the locale",
   "main": "dist/index.js",
   "module": "./dist/index.mjs",
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Exact-Realty/ts-safeid.git"
+    "url": "git+https://github.com/Exact-Realty/intl-number-parser.git"
   },
   "author": "Exact Realty Limited",
   "license": "ISC",
