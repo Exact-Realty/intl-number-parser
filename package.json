@@ -1,22 +1,28 @@
 {
   "name": "intl-number-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utility for parsing international numbers to native JavaScript numbers based on the locale",
   "main": "dist/index.js",
   "module": "./dist/index.mjs",
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+  ".": {
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "files": [
     "dist/**/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lintFix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "build": "tsc --emitDeclarationOnly --declarationMap && node esbuild.mjs",
     "test": "mocha",
-    "prepare": "npm run build",
+    "prepack": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "postinstall": "exit 0",
@@ -30,17 +36,17 @@
   "author": "Exact Realty Limited",
   "license": "ISC",
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.59.5",
-    "@typescript-eslint/parser": "^5.59.5",
-    "esbuild": "^0.17.18",
-    "eslint": "^8.40.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "@types/mocha": "^10.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "esbuild": "^0.19.4",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   },
   "keywords": [
     "number parser",
