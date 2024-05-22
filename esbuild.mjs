@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* Copyright © 2021 Exact Realty Limited.
+/* Copyright © 2023 Exact Realty Limited.
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -16,28 +16,58 @@
  */
 
 import esbuild from 'esbuild';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
-await esbuild.build({
+const outdir = process.env['BUILD_TARGET_DIR'] || 'dist';
+
+const buildOptionsBase = {
 	entryPoints: ['./src/index.ts'],
-	outdir: 'dist',
+	target: 'es2018',
+	outdir,
 	bundle: true,
 	minify: true,
-	format: 'cjs',
 	entryNames: '[name]',
 	platform: 'node',
 	external: ['esbuild'],
-});
+};
 
-await esbuild.build({
-	entryPoints: ['./src/index.ts'],
-	outdir: 'dist',
-	bundle: true,
-	minify: true,
-	format: 'esm',
-	entryNames: '[name]',
-	platform: 'node',
-	external: ['esbuild'],
-	outExtension: {
-		'.js': '.mjs',
-	},
-});
+const formats = ['cjs', 'esm'];
+
+await Promise.all(
+	formats.map((format) => {
+		return esbuild.build({
+			...buildOptionsBase,
+			format,
+			outExtension: {
+				'.js': format === 'esm' ? '.mjs' : '.cjs',
+			},
+		});
+	}),
+);
+
+const cjsDeclarationFiles = async (directoryPath) => {
+	const entries = await readdir(directoryPath, {
+		withFileTypes: true,
+		recursive: true,
+	});
+
+	await Promise.all(
+		entries
+			.filter((entry) => {
+				return entry.isFile() && entry.name.endsWith('.d.ts');
+			})
+			.map(async (file) => {
+				const name = join(file.path, file.name);
+				const newName = name.slice(0, -2) + 'cts';
+
+				const contents = await readFile(name, { encoding: 'utf-8' });
+				await writeFile(
+					newName,
+					contents.replace(/(?<=\.)js(?=['"])/g, 'cjs'),
+				);
+			}),
+	);
+};
+
+await cjsDeclarationFiles(outdir);

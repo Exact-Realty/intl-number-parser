@@ -14,7 +14,8 @@
  */
 
 import assert from 'node:assert/strict';
-import m from '../src/NumberParser';
+import { describe, it } from 'node:test';
+import m from '../src/NumberParser.js';
 
 describe('Number parsing', () => {
 	it('Correctly interprets $1,234.56 in en-US locale', () => {
