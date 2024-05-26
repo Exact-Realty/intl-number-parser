@@ -1,66 +1,66 @@
 {
-  "name": "intl-number-parser",
-  "version": "1.0.4",
-  "description": "Utility for parsing international numbers to native JavaScript numbers based on the locale",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "./dist/index.mjs",
-  ".": {
-    "import": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
-    }
-  },
-  "files": [
-    "dist/**/*"
-  ],
-  "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "build": "tsc --emitDeclarationOnly --declarationMap && node esbuild.mjs",
-    "test": "node --loader ts-node/esm test/NumberParser.test.ts",
-    "prepack": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "postinstall": "exit 0",
-    "version": "npm run lint && git add -A src",
-    "postversion": "git push && git push --tags"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Exact-Realty/intl-number-parser.git"
-  },
-  "author": "Exact Realty Limited",
-  "license": "ISC",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.10.0",
-    "@typescript-eslint/parser": "^7.10.0",
-    "esbuild": "^0.21.3",
-    "eslint": "^8.50.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  },
-  "keywords": [
-    "number parser",
-    "Intl",
-    "locale",
-    "number format",
-    "decimal",
-    "currency",
-    "parsing",
-    "i18n",
-    "internationalization",
-    "internationalisation",
-    "localization",
-    "localisation",
-    "l10n",
-    "number conversion"
-  ]
+	"name": "intl-number-parser",
+	"version": "1.0.5",
+	"description": "Utility for parsing international numbers to native JavaScript numbers based on the locale",
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "./dist/index.mjs",
+	".": {
+		"import": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.mjs"
+		},
+		"require": {
+			"types": "./dist/index.d.cts",
+			"default": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx,.json",
+		"lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.json --fix",
+		"ts:declaration": "tsc --build --emitDeclarationOnly --declarationMap --declaration",
+		"build": "npm run ts:declaration && node esbuild.mjs",
+		"test": "node --loader ts-node/esm test/NumberParser.test.ts",
+		"prepack": "npm run build",
+		"prepublishOnly": "npm test && npm run lint",
+		"preversion": "npm run lint",
+		"version": "npm run lint && git add -A src",
+		"postversion": "git push && git push --tags"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Exact-Realty/intl-number-parser.git"
+	},
+	"author": "Exact Realty Limited",
+	"license": "ISC",
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^7.10.0",
+		"@typescript-eslint/parser": "^7.10.0",
+		"esbuild": "^0.21.4",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.3",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.5"
+	},
+	"keywords": [
+		"number parser",
+		"Intl",
+		"locale",
+		"number format",
+		"decimal",
+		"currency",
+		"parsing",
+		"i18n",
+		"internationalization",
+		"internationalisation",
+		"localization",
+		"localisation",
+		"l10n",
+		"number conversion"
+	]
 }

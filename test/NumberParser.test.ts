@@ -18,7 +18,7 @@ import { describe, it } from 'node:test';
 import m from '../src/NumberParser.js';
 
 describe('Number parsing', () => {
-	it('Correctly interprets $1,234.56 in en-US locale', () => {
+	it('Correctly interprets $1,234.56 in en-US-POSIX locale', () => {
 		const parser = m('en-US-POXIX', { style: 'currency', currency: 'USD' });
 		const number = parser('$1,234.56');
 
@@ -32,9 +32,23 @@ describe('Number parsing', () => {
 		assert.equal(number, 1234.5678);
 	});
 
-	it('Correctly interprets1.234,5678 in de-DE locale', () => {
+	it('Correctly interprets 1.234,5678 in de-DE locale', () => {
 		const parser = m('de-DE');
 		const number = parser('1.234,5678');
+
+		assert.equal(number, 1234.5678);
+	});
+
+	it('Correctly interprets 1 234,5678 in fi-FI locale', () => {
+		const parser = m('fi-FI');
+		const number = parser('1 234,5678');
+
+		assert.equal(number, 1234.5678);
+	});
+
+	it('Correctly interprets १,२३४.५६७८ in hi-IN-u-nu-deva locale', () => {
+		const parser = m('hi-IN-u-nu-deva');
+		const number = parser('१,२३४.५६७८');
 
 		assert.equal(number, 1234.5678);
 	});
